@@ -27,6 +27,8 @@ chip.color("blue")
 chip.goto(ORIGIN_X + 3 * CHIP_DIST, ORIGIN_Y + 7 * CHIP_DIST)
 
 running = True
+
+
 def r() :
     if running :
         x = chip.xcor()
@@ -35,22 +37,26 @@ def r() :
         else :
             chip.setx(ORIGIN_X)
                         
-def l() :
+
+def l():
     if running :
         x = chip.xcor()
         if x > ORIGIN_X : 
             chip.setx(x - CHIP_DIST)
-        else : 
+        else:
             chip.setx(RIGHTMOST_COL)
                                                 
-turn = 1            
-def d() :
+
+turn = 1
+
+
+def d():
     global turn, running
     if running :
         x = int((chip.xcor() - ORIGIN_X) / CHIP_DIST)
         col = connect[x]
         for y in range(len(col)) :
-            if(col[y] == 0) :
+            if(col[y] == 0):
                 chip.sety(ORIGIN_Y + y * CHIP_DIST)
                 chip.stamp()
                 chip.goto(ORIGIN_X + 3 * CHIP_DIST, ORIGIN_Y + 7 * CHIP_DIST)
@@ -63,14 +69,15 @@ def d() :
                     turn = 1
                     chip.color("blue")
                 break
-                       
+
+
 screen.onkey(r, "Right")
 screen.onkey(l, "Left")
 screen.onkey(d, "Down")
 screen.listen()
 if haswinner(x,y) :
                     running = False
-                    print "Player " + str(turn) + " is the winner!"
+                    print "Player %s is the winner"%str(turn)
                 else :
                     if turn == 1 : 
                         turn = 2
@@ -78,8 +85,11 @@ if haswinner(x,y) :
                     else : 
                         turn = 1
                         chip.color("blue")
+
 def haswinner(x,y) :
     return checkrow(x,y) or checkcolumn(x,y)
+
+
 def checkrow(x,y) :
     count = 1
     for i in range(1,4) :
